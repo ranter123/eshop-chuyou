@@ -1,15 +1,13 @@
 package com.chuyou.eshop.eshop.commodity.controller;
 
-import com.chuyou.eshop.eshop.commodity.domain.CategoryDTO;
-import com.chuyou.eshop.eshop.commodity.domain.CategoryVO;
+import com.chuyou.eshop.eshop.commodity.domain.*;
 import com.chuyou.eshop.eshop.commodity.service.CategoryService;
+import com.chuyou.eshop.eshop.common.util.CloneDirection;
 import com.chuyou.eshop.eshop.common.util.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,4 +44,104 @@ public class CategoryController {
             return new ArrayList<>();
         }
     }
+
+    /**
+     * 查询子类目
+     * @return 子类目集合
+     */
+    @GetMapping("/children/{id}")
+    public List<CategoryVO> listChildren(@PathVariable("id") Long id) {
+        try {
+            List<CategoryDTO> categories = categoryService.listChildren(id);
+            List<CategoryVO> resultCategories = ObjectUtils.convertList(categories, CategoryVO.class);
+            return resultCategories;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return new ArrayList<>();
+        }
+    }
+
+    /**
+     * 新增类目
+     * @param category 类目
+     * @return 处理结果
+     */
+    @PostMapping("/")
+    public Boolean save(@RequestBody CategoryVO category) {
+        try {
+            CategoryDTO targetCategory = category.clone(CategoryDTO.class);
+            List<CategoryPropertyRelationshipDTO> targetPropertyRelations = ObjectUtils.convertList(
+                    category.getPropertyRelations(), CategoryPropertyRelationshipDTO.class);
+            targetCategory.setPropertyRelations(targetPropertyRelations);
+
+            //转换分组
+            if (category.getPropertyGroups() != null) {
+                List<PropertyGroupDTO> targetPropertyGroups = new ArrayList<>();
+                targetCategory.setPropertyGroups(targetPropertyGroups);
+                for (PropertyGroupVO group : category.getPropertyGroups()) {
+                    PropertyGroupDTO targetGroup = group.clone(PropertyGroupDTO.class);
+                    targetGroup.setRelations(ObjectUtils.convertList(group.getRelations(),
+                            PropertyGroupRelationshipDTO.class));
+                    targetPropertyGroups.add(targetGroup);
+                }
+            }
+
+            categoryService.save(targetCategory);
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
+
+    /**
+     * 根据id查询类目
+     * @param id 类目id
+     * @return 类目
+     */
+    @GetMapping("/{id}")
+    public CategoryVO getById(@PathVariable("id") Long id) {
+        try {
+            CategoryDTO category = categoryService.getById(id);
+            CategoryVO resultCategory = category.clone(CategoryVO.class, CloneDirection.OPPOSITE);
+            return resultCategory;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return null;
+        }
+    }
+
+    /**
+     * 更新类目
+     * @param category 类目
+     * @return 处理结果
+     */
+    @PutMapping("/{id}")
+    public Boolean update(@RequestBody CategoryVO category) {
+        try {
+            CategoryDTO targetCategory = category.clone(CategoryDTO.class, CloneDirection.FORWARD);
+            categoryService.update(targetCategory);
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
+
+    /**
+     * 删除类目
+     * @param id 类目id
+     * @return 处理结果
+     */
+    @DeleteMapping("/{id}")
+    public Boolean remove(@PathVariable("id") Long id) {
+        try {
+            return categoryService.remove(id);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
+
+
 }
