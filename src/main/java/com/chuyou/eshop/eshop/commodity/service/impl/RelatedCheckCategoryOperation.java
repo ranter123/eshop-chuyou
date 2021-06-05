@@ -1,6 +1,7 @@
 package com.chuyou.eshop.eshop.commodity.service.impl;
 
 import com.chuyou.eshop.eshop.commodity.dao.CategoryDAO;
+import com.chuyou.eshop.eshop.commodity.dao.GoodsDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

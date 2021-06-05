@@ -1,7 +1,7 @@
 package com.chuyou.eshop.eshop.commodity.controller;
 
-import com.chuyou.eshop.eshop.commodity.domain.GoodsDetailPictureDTO;
-import com.chuyou.eshop.eshop.commodity.service.GoodsDetailPictureService;
+import com.chuyou.eshop.eshop.commodity.domain.GoodsPictureDTO;
+import com.chuyou.eshop.eshop.commodity.service.GoodsPictureService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,32 +17,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Description: 商品详情图片管理controller组件
+ * @Description: 商品图片管理controller组件
  * @Author: jiangchuyou@banggood.com
- * @Date: 2021/6/2 19:51
+ * @Date: 2021/6/3 17:22
  */
 @RestController
-@RequestMapping("/commodity/goods/detail/picture")
-public class GoodsDetailPictureController {
+@RequestMapping("/commodity/goods/picture")
+public class GoodsPictureController {
 
-    private static final Logger logger = LoggerFactory.getLogger(GoodsDetailPictureController.class);
+    private static final Logger logger = LoggerFactory.getLogger(GoodsPictureController.class);
 
     /**
-     * 商品详情图片管理service组件
+     * 商品图片管理service组件
      */
     @Autowired
-    private GoodsDetailPictureService goodsDetailPictureService;
+    private GoodsPictureService goodsPictureService;
 
     /**
-     * 批量上传图片
-     * @param goodsDetailId 商品详情id
-     * @param pictures 商品详情图片
-     * @return 商品详情图片id
+     * 批量上次图片
+     * @param goodsId 商品id
+     * @param pictures 商品图片
+     * @return 处理结果
      */
-    @PostMapping("/{goodsDetailId}")
-    public List<Long> bachUploadPicture(@PathVariable("goodsDetailId") Long goodsDetailId, MultipartFile[] pictures) {
+    @PostMapping("/{goodsId}")
+    public Boolean batchService(@PathVariable("goodsId") Long goodsId, MultipartFile[] pictures) {
         try {
-            return goodsDetailPictureService.batchUploadPicture(goodsDetailId, pictures);
+            goodsPictureService.batchSave(goodsId, pictures);
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
+
+    /**
+     * 根据商品id查询商品图片id
+     * @param goodsId 商品id
+     * @return 商品图片id
+     */
+    @GetMapping("/{goodsId}")
+    public List<Long> listIdsByGoodsId(@PathVariable("goodsId") Long goodsId) {
+        try {
+            return goodsPictureService.listIdsByGoodsId(goodsId);
         } catch (Exception e) {
             logger.error("error", e);
             return new ArrayList<>();
@@ -59,15 +75,15 @@ public class GoodsDetailPictureController {
     public void getById(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response) {
         FileInputStream fis = null;
         try {
-            GoodsDetailPictureDTO picture = goodsDetailPictureService.getById(id);
+            GoodsPictureDTO picture = goodsPictureService.getById(id);
             File file = new File(picture.getPicturePath());
             fis = new FileInputStream(file);
             byte[] bytes = new byte[fis.available()];
             fis.read(bytes);
             response.setContentType("image/jpg");
-            OutputStream out = response.getOutputStream();
-            out.write(bytes);
-            out.flush();
+            OutputStream outputStream = response.getOutputStream();
+            outputStream.write(bytes);
+            outputStream.flush();
         } catch (Exception e) {
             logger.error("error", e);
         } finally {
@@ -81,15 +97,10 @@ public class GoodsDetailPictureController {
         }
     }
 
-    /**
-     * 根据商品id删除图片
-     * @param goodsDetailId 商品详情id
-     * @return
-     */
-    @DeleteMapping("/{goodsDetailId}")
-    public Boolean batchRemoveByGoodsId(@PathVariable("goodsDetailId") Long goodsDetailId) {
+    @DeleteMapping("/{goodsId}")
+    public Boolean batchRemoveByGoodsId(@PathVariable("goodsId") Long goodsId) {
         try {
-            goodsDetailPictureService.batchRemoveByGoodsDetailId(goodsDetailId);
+            goodsPictureService.batchRemoveByGoodsId(goodsId);
             return true;
         } catch (Exception e) {
             logger.error("error", e);

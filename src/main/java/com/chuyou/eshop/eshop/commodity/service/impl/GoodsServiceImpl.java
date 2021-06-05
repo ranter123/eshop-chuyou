@@ -1,10 +1,10 @@
 package com.chuyou.eshop.eshop.commodity.service.impl;
 
 import com.chuyou.eshop.eshop.commodity.constant.GoodsStatus;
-import com.chuyou.eshop.eshop.commodity.dao.GoodsDAO;
-import com.chuyou.eshop.eshop.commodity.dao.GoodsDetailDAO;
+import com.chuyou.eshop.eshop.commodity.dao.*;
 import com.chuyou.eshop.eshop.commodity.domain.*;
 import com.chuyou.eshop.eshop.commodity.service.GoodsService;
+import com.chuyou.eshop.eshop.commodity.state.GoodsStateManager;
 import com.chuyou.eshop.eshop.common.util.DateUtils;
 import com.chuyou.eshop.eshop.common.util.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,7 +119,7 @@ public class GoodsServiceImpl implements GoodsService {
         if (!goodsStateManager.canEdit(goods)) {
             return false;
         }
-        goodsDAO.update(goods.clone(GoodsDTO.class));
+        goodsDAO.update(goods.clone(GoodsDO.class));
         goodsStateManager.edit(goods);
         return true;
     }
