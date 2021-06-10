@@ -1,5 +1,6 @@
 package com.chuyou.eshop.eshop.order.state;
 
+import com.chuyou.eshop.eshop.order.dao.OrderInfoDAO;
 import com.chuyou.eshop.eshop.order.domain.OrderInfoDTO;
 
 /**
@@ -26,7 +27,17 @@ public abstract class AbstractOrderState implements OrderState {
     @Override
     public void doTransition(OrderInfoDTO order) throws Exception {
         Integer orderStatus = getOrderStatus(order);
+        order.setOrderStatus(orderStatus);
+        orderInfoDAO.updateStatus(order.getId(), orderStatus);
     }
+
+    /**
+     * 获取订单状态
+     * @param order 订单
+     * @return 订单状态
+     * @throws Exception
+     */
+    protected abstract Integer getOrderStatus(OrderInfoDTO order) throws Exception;
 
     /**
      * 判断当前状态下能否执行取消订单操作
@@ -36,7 +47,7 @@ public abstract class AbstractOrderState implements OrderState {
      */
     @Override
     public Boolean canCancel(OrderInfoDTO order) throws Exception {
-        return null;
+        return false;
     }
 
     /**
@@ -47,7 +58,7 @@ public abstract class AbstractOrderState implements OrderState {
      */
     @Override
     public Boolean canPay(OrderInfoDTO order) throws Exception {
-        return null;
+        return false;
     }
 
 
@@ -59,7 +70,7 @@ public abstract class AbstractOrderState implements OrderState {
      */
     @Override
     public Boolean canConfirmReceipt(OrderInfoDTO order) throws Exception {
-        return null;
+        return false;
     }
 
     /**
@@ -70,6 +81,6 @@ public abstract class AbstractOrderState implements OrderState {
      */
     @Override
     public Boolean canApplyReturnGoods(OrderInfoDTO order) throws Exception {
-        return null;
+        return false;
     }
 }

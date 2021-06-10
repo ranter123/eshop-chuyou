@@ -293,7 +293,7 @@ public class OrderInfoDTO extends AbstractObject {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		com.zhss.eshop.order.domain.OrderInfoDTO other = (com.zhss.eshop.order.domain.OrderInfoDTO) obj;
+		OrderInfoDTO other = (OrderInfoDTO) obj;
 		if (confirmReceiptTime == null) {
 			if (other.confirmReceiptTime != null) {
 				return false;

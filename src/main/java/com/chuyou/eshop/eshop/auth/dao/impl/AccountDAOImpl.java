@@ -1,6 +1,8 @@
 package com.chuyou.eshop.eshop.auth.dao.impl;
 
 import com.chuyou.eshop.eshop.auth.dao.AccountDAO;
+import com.chuyou.eshop.eshop.auth.domain.AccountDO;
+import com.chuyou.eshop.eshop.auth.domain.AccountQuery;
 import com.chuyou.eshop.eshop.auth.mapper.AccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

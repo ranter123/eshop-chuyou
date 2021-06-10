@@ -1,6 +1,6 @@
 package com.chuyou.eshop.eshop.order.domain;
 
-import com.zhss.eshop.common.util.AbstractObject;
+import com.chuyou.eshop.eshop.common.util.AbstractObject;
 
 import java.util.Date;
 

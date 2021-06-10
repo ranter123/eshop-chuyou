@@ -1,5 +1,6 @@
 package com.chuyou.eshop.eshop.auth.mapper;
 
+import com.chuyou.eshop.eshop.auth.domain.AccountPriorityRelationshipDO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

@@ -1,6 +1,7 @@
 package com.chuyou.eshop.eshop.order.service.impl;
 
 import com.chuyou.eshop.eshop.common.util.ObjectUtils;
+import com.chuyou.eshop.eshop.order.dao.OrderInfoDAO;
 import com.chuyou.eshop.eshop.order.domain.*;
 import com.chuyou.eshop.eshop.order.service.OrderInfoService;
 import com.chuyou.eshop.eshop.promotion.domain.PromotionActivityDTO;

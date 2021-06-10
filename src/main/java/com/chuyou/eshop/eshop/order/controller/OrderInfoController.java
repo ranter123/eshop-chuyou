@@ -4,6 +4,7 @@ import com.chuyou.eshop.eshop.common.util.CloneDirection;
 import com.chuyou.eshop.eshop.common.util.ObjectUtils;
 import com.chuyou.eshop.eshop.order.domain.*;
 import com.chuyou.eshop.eshop.order.service.OrderInfoService;
+import com.chuyou.eshop.eshop.order.state.LoggedOrderStateManager;
 import com.chuyou.eshop.eshop.promotion.domain.CouponDTO;
 import com.chuyou.eshop.eshop.promotion.domain.CouponVO;
 import org.slf4j.Logger;
@@ -64,8 +65,6 @@ public class OrderInfoController {
 
     /**
      * 计算优惠券抵扣的金额
-     * @param order
-     * @param coupon
      * @return
      */
     @PostMapping("/coupon")
@@ -120,8 +119,7 @@ public class OrderInfoController {
     }
 
     /**
-     * 分页查询订单
-     * @param query 查询条件
+     * 根据订单ID查询订单
      * @return 订单
      * @throws Exception
      */

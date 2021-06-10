@@ -1,5 +1,6 @@
 package com.chuyou.eshop.eshop.promotion.domain;
 
+import com.chuyou.eshop.eshop.common.json.DateJsonSerializer;
 import com.chuyou.eshop.eshop.common.util.AbstractObject;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -32,7 +33,7 @@ public class CouponVO extends AbstractObject {
 	/**
 	 * 有效期开始时间
 	 */
-	@JsonSerialize(using=DateJsonSerializer.class)
+	@JsonSerialize(using= DateJsonSerializer.class)
 	@JsonDeserialize(using=DateJsonDeserializer.class)
 	private Date validStartTime;
 	/**

@@ -207,7 +207,7 @@ public class OrderItemDO extends AbstractObject {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		com.zhss.eshop.order.domain.OrderItemDO other = (com.zhss.eshop.order.domain.OrderItemDO) obj;
+		OrderItemDO other = (OrderItemDO) obj;
 		if (gmtCreate == null) {
 			if (other.gmtCreate != null) {
 				return false;

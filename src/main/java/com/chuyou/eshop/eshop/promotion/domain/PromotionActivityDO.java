@@ -141,7 +141,7 @@ public class PromotionActivityDO extends AbstractObject {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		com.zhss.eshop.promotion.domain.PromotionActivityDO other = (com.zhss.eshop.promotion.domain.PromotionActivityDO) obj;
+		PromotionActivityDO other = (PromotionActivityDO) obj;
 		if (endTime == null) {
 			if (other.endTime != null) {
 				return false;

@@ -97,7 +97,7 @@ public class OrderOperateLogDO extends AbstractObject {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		com.zhss.eshop.order.domain.OrderOperateLogDO other = (com.zhss.eshop.order.domain.OrderOperateLogDO) obj;
+		OrderOperateLogDO other = (OrderOperateLogDO) obj;
 		if (gmtCreate == null) {
 			if (other.gmtCreate != null) {
 				return false;

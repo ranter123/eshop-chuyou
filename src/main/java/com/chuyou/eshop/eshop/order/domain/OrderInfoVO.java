@@ -103,11 +103,11 @@ public class OrderInfoVO extends AbstractObject {
 	/**
 	 * 订单包含的订单条目
 	 */
-	private List<com.zhss.eshop.order.domain.OrderItemVO> orderItems;
+	private List<OrderItemVO> orderItems;
 	/**
 	 * 订单操作日志
 	 */
-	private List<com.zhss.eshop.order.domain.OrderOperateLogVO> logs;
+	private List<OrderOperateLogVO> logs;
 	
 	public Long getId() {
 		return id;
@@ -235,16 +235,16 @@ public class OrderInfoVO extends AbstractObject {
 	public void setGmtModified(Date gmtModified) {
 		this.gmtModified = gmtModified;
 	}
-	public List<com.zhss.eshop.order.domain.OrderItemVO> getOrderItems() {
+	public List<OrderItemVO> getOrderItems() {
 		return orderItems;
 	}
-	public void setOrderItems(List<com.zhss.eshop.order.domain.OrderItemVO> orderItems) {
+	public void setOrderItems(List<OrderItemVO> orderItems) {
 		this.orderItems = orderItems;
 	}
-	public List<com.zhss.eshop.order.domain.OrderOperateLogVO> getLogs() {
+	public List<OrderOperateLogVO> getLogs() {
 		return logs;
 	}
-	public void setLogs(List<com.zhss.eshop.order.domain.OrderOperateLogVO> logs) {
+	public void setLogs(List<OrderOperateLogVO> logs) {
 		this.logs = logs;
 	}
 	public Long getCouponId() {

@@ -1,6 +1,7 @@
 package com.chuyou.eshop.eshop.order.domain;
 
 import com.chuyou.eshop.eshop.common.util.AbstractObject;
+import com.chuyou.eshop.eshop.promotion.domain.CouponVO;
 
 /**
  * 计算优惠券抵扣金额的VO类
