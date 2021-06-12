@@ -1,0 +1,45 @@
+package com.chuyou.eshop.eshop.promotion.service;
+
+import com.chuyou.eshop.eshop.promotion.domain.CouponDTO;
+import com.chuyou.eshop.eshop.promotion.domain.PromotionActivityDTO;
+
+import java.util.List;
+
+/**
+ * @Description: 促销中心对外提供的接口
+ * @Author: jiangchuyou@banggood.com
+ * @Date: 2021/6/12 14:48
+ */
+public interface PromotionService {
+
+    /**
+     * 根据商品id查询促销活动
+     * @param goodsId 商品id
+     * @return 促销活动
+     */
+    List<PromotionActivityDTO> listByGoodsId(Long goodsId);
+
+    /**
+     * 根据id查询促销活动
+     * @param id 促销活动id
+     * @return 促销活动
+     */
+    PromotionActivityDTO getById(Long id);
+
+    /**
+     * 查询用户当前可以使用的有效优惠券
+     * @param userAccountId 用户账号id
+     * @return 有效优惠券
+     */
+    List<CouponDTO> listValidByUserAccountId(Long userAccountId);
+
+    /**
+     * 使用优惠券
+     * @param couponId 优惠券id
+     * @param userAccountId 用户账号id
+     * @return 处理结果
+     */
+    Boolean useCoupon(Long couponId, Long userAccountId);
+
+
+}

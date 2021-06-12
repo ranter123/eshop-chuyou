@@ -1,9 +1,17 @@
 package com.chuyou.eshop.eshop.order.service.impl;
 
+import com.chuyou.eshop.eshop.common.util.DateUtils;
 import com.chuyou.eshop.eshop.common.util.ObjectUtils;
+import com.chuyou.eshop.eshop.customer.service.CustomerService;
+import com.chuyou.eshop.eshop.order.constant.OrderStatus;
 import com.chuyou.eshop.eshop.order.dao.OrderInfoDAO;
+import com.chuyou.eshop.eshop.order.dao.OrderItemDAO;
+import com.chuyou.eshop.eshop.order.dao.OrderOperateLogDAO;
 import com.chuyou.eshop.eshop.order.domain.*;
+import com.chuyou.eshop.eshop.order.price.*;
 import com.chuyou.eshop.eshop.order.service.OrderInfoService;
+import com.chuyou.eshop.eshop.order.state.LoggedOrderStateManager;
+import com.chuyou.eshop.eshop.promotion.constant.PromotionActivityType;
 import com.chuyou.eshop.eshop.promotion.domain.PromotionActivityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -137,7 +145,6 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         order.setFreight(freight);
         order.setPayableAmount(totalAmount + freight - discountAmount);
         order.getOrderItems().addAll(giftOrderItems);
-
         return order;
     }
 
@@ -224,16 +231,16 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         order.setOrderNo(UUID.randomUUID().toString().replace("-", ""));
         order.setPublishedComment(PublishedComment.NO);
         order.setOrderStatus(OrderStatus.UNKNOWN);
-        order.setGmtCreate(dateProvider.getCurrentTime());
-        order.setGmtModified(dateProvider.getCurrentTime());
+        order.setGmtCreate(DateUtils.getCurrentTime());
+        order.setGmtModified(DateUtils.getCurrentTime());
 
         Long orderInfoId = orderInfoDAO.save(order.clone(OrderInfoDO.class));
         order.setId(orderInfoId);
 
         for(OrderItemDTO orderItem : order.getOrderItems()) {
             orderItem.setOrderInfoId(orderInfoId);
-            orderItem.setGmtCreate(dateProvider.getCurrentTime());
-            orderItem.setGmtModified(dateProvider.getCurrentTime());
+            orderItem.setGmtCreate(DateUtils.getCurrentTime());
+            orderItem.setGmtModified(DateUtils.getCurrentTime());
 
             Long orderItemId = orderItemDAO.save(orderItem.clone(OrderItemDO.class));
 
@@ -358,7 +365,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
         orderStateManager.confirmReceipt(order);
 
-        order.setConfirmReceiptTime(dateProvider.getCurrentTime());
+        order.setConfirmReceiptTime(DateUtils.getCurrentTime());
         orderInfoDAO.update(order.clone(OrderInfoDO.class));
 
         return true;
