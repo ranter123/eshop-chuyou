@@ -2,6 +2,8 @@ package com.chuyou.eshop.eshop.promotion.service.impl;
 
 import com.chuyou.eshop.eshop.common.util.DateUtils;
 import com.chuyou.eshop.eshop.common.util.ObjectUtils;
+import com.chuyou.eshop.eshop.menbership.domain.UserAccountDTO;
+import com.chuyou.eshop.eshop.menbership.service.MembershipService;
 import com.chuyou.eshop.eshop.promotion.constant.CouponGiveOutType;
 import com.chuyou.eshop.eshop.promotion.constant.CouponStatus;
 import com.chuyou.eshop.eshop.promotion.dao.CouponAchieveDAO;

@@ -11,8 +11,11 @@ import com.chuyou.eshop.eshop.order.domain.*;
 import com.chuyou.eshop.eshop.order.price.*;
 import com.chuyou.eshop.eshop.order.service.OrderInfoService;
 import com.chuyou.eshop.eshop.order.state.LoggedOrderStateManager;
+import com.chuyou.eshop.eshop.pay.service.PayService;
 import com.chuyou.eshop.eshop.promotion.constant.PromotionActivityType;
+import com.chuyou.eshop.eshop.promotion.domain.CouponDTO;
 import com.chuyou.eshop.eshop.promotion.domain.PromotionActivityDTO;
+import com.chuyou.eshop.eshop.promotion.service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -150,7 +153,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
     /**
      * 获取一个订单价格计算工厂
-     * @param promotionActivityType 促销活动类型
+     * @param promotionActivity 促销活动
      * @return 订单价格计算工厂
      */
     private OrderPriceCalculatorFactory getOrderPriceCalculatorFactory(

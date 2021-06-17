@@ -4,6 +4,7 @@ import com.chuyou.eshop.eshop.promotion.dao.CouponAchieveDAO;
 import com.chuyou.eshop.eshop.promotion.domain.CouponAchieveDO;
 import com.chuyou.eshop.eshop.promotion.mapper.CouponAchieveMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @Author: jiangchuyou@banggood.com
  * @Date: 2021/6/12 15:33
  */
+@Repository
 public class CouponAchieveDAOImpl implements CouponAchieveDAO {
 
     /**
