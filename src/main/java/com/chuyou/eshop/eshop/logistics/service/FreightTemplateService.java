@@ -2,6 +2,7 @@ package com.chuyou.eshop.eshop.logistics.service;
 
 
 import com.chuyou.eshop.eshop.logistics.domain.FreightTemplateDTO;
+import com.chuyou.eshop.eshop.logistics.domain.FreightTemplateQuery;
 
 import java.util.List;
 
